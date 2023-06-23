@@ -1,10 +1,13 @@
 const express = require('express');
+const cors = require('cors');
+
 const PORT = 3000;
 
 const app = express();
 
 //Middleware
 app.use(express.json());
+app.use(cors());
 
 //For testing only
 const database = {
