@@ -3,6 +3,11 @@ const cors = require('cors');
 const cryptoJS = require('crypto-js');
 const knex = require('knex')
 
+const register = require('./controllers/register');
+const login = require('./controllers/login');
+const profile = require('./controllers/profile');
+const image = require('./controllers/image');
+
 const db = knex({
   client: 'pg',
   connection: {
@@ -15,95 +20,19 @@ const db = knex({
 });
 
 const PORT = 3000;
-
 const app = express();
 
 //Middleware
 app.use(express.json());
 app.use(cors());
 
-app.post('/signin', (req, res) => {
-  db.select('email', 'hash').from('login')
-    .where('email', '=', req.body.email)
-    .then(data => {
-      const isValid = JSON.stringify(cryptoJS.SHA256(req.body.password).words) === data[0].hash;
-      if (isValid) {
-        return db.select('*').from('users')
-          .where('email', '=', req.body.email)
-          .then(user => {
-            res.json(user[0])
-          })
-          .catch(err => res.status(400).json("Unable to get user"))
-      } else {
-        res.status(400).json("Invalid Credentials");
-      }
-    })
-    .catch(err => {
-      res.status(400).json("Login failed");
-    })
-});
+app.post('/signin', (req, res) => { login.handleLogin(req, res, db, cryptoJS) });
 
-app.post('/register', (req, res) => {
-  const { email, name, password } = req.body;
-  const hash = JSON.stringify(cryptoJS.SHA256(password).words);
+app.post('/register', (req, res) => { register.handleRegister(req, res, db, cryptoJS) });
 
-  db.transaction(trx => {
-    trx.insert({
-      hash: hash,
-      email: email
-    })
-    .into('login')
-    .returning('email')
-    .then(loginEmail => {
-      trx('users')
-        .returning('*')
-        .insert({
-          email: loginEmail[0].email,
-          name: name,
-          joined: new Date()
-        })
-        .then(user => {
-          res.json(user[0]);
-        })
-    })
-    .then(trx.commit)
-    .catch(trx.rollback)
-  })
-    .catch(err => res.status(400).json('Registration failed'));
+app.get('/profile/:id', (req, res) => { profile.fetchUser(req, res, db) });
 
-});
-
-app.get('/profile/:id', (req, res) => {
-  const { id } = req.params;
-
-  db.select().from('users').where({
-    id: id
-  })
-    .then(user => {
-      if (user.length) {
-        res.json(user);
-      } else {
-        res.status(400).json("User not found");
-      }
-      
-    })
-    .catch(err => {
-      res.status(400).json("Error getting user");
-    })
-});
-
-app.put('/image', (req, res) => {
-  const { id } = req.body;
-  db('users').where({
-    id: id
-  })
-  .increment('entries', 1)
-  .returning('entries')
-  .then(entries => {
-    res.json(entries[0].entries);
-  })
-  .catch(err => res.status(400).json("Unable to get entries"));
-});
+app.put('/image', (req, res) => { image.incrementEntries(req, res, db) });
 
 app.listen(PORT, () => {
   console.log('app is running on port ' + PORT);
