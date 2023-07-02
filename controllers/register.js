@@ -1,5 +1,9 @@
 const handleRegister = (req, res, db, cryptoJS) => {
   const { email, name, password } = req.body;
+  if (!email || !name || !password) {
+    return res.status(400).json("Invalid form submission");
+  }
+
   const hash = JSON.stringify(cryptoJS.SHA256(password).words);
 
   db.transaction(trx => {
@@ -29,5 +33,5 @@ const handleRegister = (req, res, db, cryptoJS) => {
 }
 
 module.exports = {
-  handleRegister: handleRegister
+  handleRegister
 }

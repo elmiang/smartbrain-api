@@ -18,5 +18,5 @@ const fetchUser = (req, res, db) => {
 }
 
 module.exports = {
-  fetchUser: fetchUser
+  fetchUser
 }

@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const cryptoJS = require('crypto-js');
-const knex = require('knex')
+const knex = require('knex');
 
 const register = require('./controllers/register');
 const login = require('./controllers/login');
@@ -33,6 +33,8 @@ app.post('/register', (req, res) => { register.handleRegister(req, res, db, cryp
 app.get('/profile/:id', (req, res) => { profile.fetchUser(req, res, db) });
 
 app.put('/image', (req, res) => { image.incrementEntries(req, res, db) });
+
+app.post('/imageurl', (req, res) => { image.handleApiUse(req, res) });
 
 app.listen(PORT, () => {
   console.log('app is running on port ' + PORT);
