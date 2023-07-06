@@ -11,20 +11,22 @@ const image = require('./controllers/image');
 const db = knex({
   client: 'pg',
   connection: {
-    host : '127.0.0.1',
-    port : 5432,
-    user : 'postgres',
-    password : 'password',
-    database : 'smartbrain'
+    host : process.env.HOST,
+    port : process.env.DBPORT,
+    user : process.env.USER,
+    password : process.env.USER,
+    database : process.env.DATABASE
   }
 });
 
-const PORT = 3000;
+const PORT = process.env.PORT;
 const app = express();
 
 //Middleware
 app.use(express.json());
 app.use(cors());
+
+app.get('/', (req, res) => {res.json("Hello")});
 
 app.post('/signin', (req, res) => { login.handleLogin(req, res, db, cryptoJS) });
 
