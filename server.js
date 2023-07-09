@@ -26,6 +26,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+//Test CD
 app.get('/', (req, res) => {res.json("Hello")});
 
 app.post('/signin', (req, res) => { login.handleLogin(req, res, db, cryptoJS) });
