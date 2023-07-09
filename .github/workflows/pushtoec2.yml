@@ -21,4 +21,3 @@ jobs:
           SOURCE: "./"
           REMOTE_HOST: ${{ secrets.EC2_HOST }}
           REMOTE_USER: "ec2-user"
-          TARGET: "home/ec2-user/smartbrain-api"
