@@ -4,7 +4,7 @@ files
   - source: /
     destination: smartbrain-api/
 hooks:
-  BeforeInstall
+  BeforeInstall:
     - location: scripts/install_dependencies
       timeout: 300
       runas: root
