@@ -1,3 +1,4 @@
+source /home/ec2-user/.bash_profile
 #!/bin/bash
 cd /smartbrain-api/
 sudo yum install -y nodejs
