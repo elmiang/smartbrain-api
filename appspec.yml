@@ -2,7 +2,7 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: smartbrain-api/
+    destination: home/ec2-user/smartbrain-api/
 hooks:
   BeforeInstall:
     - location: scripts/install_dependencies
