@@ -1,5 +1,4 @@
 source /home/ec2-user/.bash_profile
-#!/bin/bash
 cd /smartbrain-api/
 
 pm2 delete all
