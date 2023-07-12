@@ -1,0 +1,6 @@
+#!/bin/bash
+cd /smartbrain-api/
+sudo yum install -y nodejs
+
+npm install -g pm2
+npm install
