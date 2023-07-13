@@ -3,12 +3,12 @@ os: linux
 files:
   - source: /
     destination: home/ec2-user/smartbrain-api/
-hooks:
-  BeforeInstall:
-    - location: scripts/install_dependencies
-      timeout: 300
-      runas: root
-  ApplicationStart:
-    - location: scripts/start_server
-      timeout: 300
-      runas: root
+# hooks:
+#   BeforeInstall:
+#     - location: scripts/install_dependencies
+#       timeout: 300
+#       runas: root
+#   ApplicationStart:
+#     - location: scripts/start_server
+#       timeout: 300
+#       runas: root
