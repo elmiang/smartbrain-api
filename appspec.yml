@@ -3,6 +3,7 @@ os: linux
 files:
   - source: /
     destination: home/ec2-user/smartbrain-api/
+file_exists_behaviour: OVERWRITE
 # hooks:
 #   BeforeInstall:
 #     - location: scripts/install_dependencies
