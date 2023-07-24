@@ -7,6 +7,7 @@ const register = require('./controllers/register');
 const login = require('./controllers/login');
 const profile = require('./controllers/profile');
 const image = require('./controllers/image');
+const users = require('./controllers/users');
 
 const db = knex({
   client: 'pg',
@@ -37,6 +38,8 @@ app.get('/profile/:id', (req, res) => { profile.fetchUser(req, res, db) });
 app.put('/image', (req, res) => { image.incrementEntries(req, res, db) });
 
 app.post('/imageurl', (req, res) => { image.handleApiUse(req, res) });
+
+app.get('/rankings', (req, res) => { users.getRankings(req, res, db) });
 
 app.listen(PORT, () => {
   console.log('app is running on port ' + PORT);
