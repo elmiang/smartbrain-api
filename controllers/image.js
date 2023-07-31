@@ -62,7 +62,21 @@ const incrementEntries = (req, res, db) => {
   .catch(err => res.status(400).json("Unable to get entries"));
 }
 
+const incrementFaces = (req, res, db) => {
+  const { id, faces } = req.body;
+  db('users').where({
+    id: id
+  })
+  .increment('entries', faces)
+  .returning('entries')
+  .then(entries => {
+    res.json(faces[0].faces);
+  })
+  .catch(err => res.status(400).json("Unable to get faces"));
+}
+
 module.exports = {
   incrementEntries,
+  incrementFaces,
   handleApiUse
 }

@@ -29,18 +29,19 @@ app.use(cors());
 
 app.get('/', (req, res) => {res.json("Hello AWS")});
 
+//Signin / register
 app.post('/signin', (req, res) => { login.handleLogin(req, res, db, cryptoJS) });
-
 app.post('/register', (req, res) => { register.handleRegister(req, res, db, cryptoJS) });
 
 app.get('/profile/:id', (req, res) => { profile.fetchUser(req, res, db) });
 
-app.put('/image', (req, res) => { image.incrementEntries(req, res, db) });
-
+//Image API 
+app.put('/imageEntries', (req, res) => { image.incrementEntries(req, res, db) });
+app.put('/imageFaces', (req, res) => { image.incrementFaces(req, res, db) });
 app.post('/imageurl', (req, res) => { image.handleApiUse(req, res) });
 
+//Leaderboards
 app.get('/rankings/entries', (req, res) => { users.getRankingsEntries(req, res, db) });
-
 app.get('/rankings/faces', (req, res) => { users.getRankingsFaces(req, res, db) });
 
 app.listen(PORT, () => {
