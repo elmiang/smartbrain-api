@@ -39,9 +39,9 @@ app.put('/image', (req, res) => { image.incrementEntries(req, res, db) });
 
 app.post('/imageurl', (req, res) => { image.handleApiUse(req, res) });
 
-app.get('/rankings/entries', (req, res) => { users.getRankings(req, res, db) });
+app.get('/rankings/entries', (req, res) => { users.getRankingsEntries(req, res, db) });
 
-app.get('/rankings/faces', (req, res) => { users.getRankings(req, res, db) });
+app.get('/rankings/faces', (req, res) => { users.getRankingsFaces(req, res, db) });
 
 app.listen(PORT, () => {
   console.log('app is running on port ' + PORT);
