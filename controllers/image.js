@@ -67,9 +67,9 @@ const incrementFaces = (req, res, db) => {
   db('users').where({
     id: id
   })
-  .increment('entries', faces)
-  .returning('entries')
-  .then(entries => {
+  .increment('faces', faces)
+  .returning('faces')
+  .then(faces => {
     res.json(faces[0].faces);
   })
   .catch(err => res.status(400).json("Unable to get faces"));
