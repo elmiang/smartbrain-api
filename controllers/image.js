@@ -1,9 +1,22 @@
 const MODEL_ID = 'face-detection';   
 
 const returnClarifaiRequestOptions = (inputLink) => {
-  const PAT = '15be52e14b484b9db71bda8b6f070bee';
-  const USER_ID = 'elmiang';       
-  const APP_ID = 'smartbrain';
+  //Primary Account
+  // const credentials = {
+  //   PAT: '15be52e14b484b9db71bda8b6f070bee',
+  //   USER_ID: 'elmiang',
+  //   APP_ID: 'smartbrain'
+  // }
+  //Backup Account
+  const credentials = {
+    PAT: '0c6ba9bae17744c7bfffcbbd3e4c1222',
+    USER_ID: 'elmiang2',
+    APP_ID: 'smartbrain'
+  }
+
+  const PAT = credentials.PAT;
+  const USER_ID = credentials.USER_ID;       
+  const APP_ID = credentials.APP_ID;
   const IMAGE_URL = inputLink;
 
   const raw = JSON.stringify({
